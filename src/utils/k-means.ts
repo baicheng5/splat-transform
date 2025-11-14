@@ -136,9 +136,13 @@ const groupLabels = (labels: Uint32Array, k: number) => {
 const kmeans = async (points: DataTable, k: number, iterations: number, device?: GpuDevice) => {
     // too few data points
     if (points.numRows < k) {
+        const labels = new Uint32Array(points.numRows);
+        for (let i = 0; i < points.numRows; i++) {
+            labels[i] = i;
+        }
         return {
             centroids: points.clone(),
-            labels: new Array(points.numRows).fill(0).map((_, i) => i)
+            labels
         };
     }
 
