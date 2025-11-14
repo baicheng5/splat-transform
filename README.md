@@ -164,6 +164,22 @@ splat-transform -w cloudA.ply -r 0,90,0 cloudB.ply -s 2 merged.compressed.ply
 splat-transform input1.ply input2.ply output.ply -t 0,0,10 -s 0.5
 ```
 
+### LOD (Level of Detail)
+
+Create hierarchical LOD structures by tagging different input files with LOD levels:
+
+```bash
+# Create a LOD structure with 3 levels from separate PLY files
+splat-transform lod0.ply --lod 0 lod1.ply --lod 1 lod2.ply --lod 2 scenes/lod-meta.json
+
+# Customize LOD chunking parameters
+splat-transform -C 1024 -X 32 lod0.ply --lod 0 lod1.ply --lod 1 output/lod-meta.json
+```
+
+The `--lod` flag tags all splats from the preceding file with the specified LOD level. The output will be a hierarchical structure with:
+- A main `lod-meta.json` file describing the LOD hierarchy
+- Separate folders (`0_0/`, `1_0/`, `2_0/`, etc.) containing compressed SOG files for each LOD level
+
 ### Generators (Beta)
 
 Generator scripts can be used to synthesize gaussian splat data. See [gen-grid.mjs](generators/gen-grid.mjs) for an example.

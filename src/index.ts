@@ -511,7 +511,10 @@ EXAMPLES
     # Generate synthetic splats using a generator script
     splat-transform gen-grid.mjs -p width=500,height=500,scale=0.1 grid.ply
 
-    # Generate LOD with custom chunk size and node split size
+    # Create LOD structure from multiple files with different detail levels
+    splat-transform lod0.ply --lod 0 lod1.ply --lod 1 lod2.ply --lod 2 scenes/lod-meta.json
+
+    # Generate LOD from LCC with custom chunk size and node split size
     splat-transform -O 0,1,2 -C 1024 -X 32 input.lcc output/lod-meta.json
 `;
 
